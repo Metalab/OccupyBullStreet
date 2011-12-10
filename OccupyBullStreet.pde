@@ -28,7 +28,7 @@ boolean       usekinect;
 ReadyBox      readyBox;
 
 Timer         timer;
-
+int           studentCount;
 HighScore     score;
 
 Road roadBg = new Road();
@@ -41,6 +41,10 @@ void setup() {
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
+  studentCount = 10;
+
+  fs = new FullScreen(this);
+  size(640, 480);
 
   if(usekinect) context = new SimpleOpenNI(this);
 
@@ -48,8 +52,8 @@ void setup() {
   timer = new Timer(20000);
   score = new HighScore();
 
-  for (int i = 0; i <= 30; i++) {
-    students.add(new Student());
+  for (int i = 0; i <= studentCount; i++) {
+     students.add(new Student());
   }
 
   // enable depthMap generation 
@@ -62,13 +66,10 @@ void setup() {
   roadBg.setup("street.jpg");
   smooth();
 
-  fs = new FullScreen(this);
-
   if(usekinect) {
     size(context.depthWidth(), context.depthHeight());
   } else {
     bull = new Bull(width/2, height/2);
-    size(640, 480);
   }
   // enter fullscreen mode
   //fs.enter();
@@ -98,7 +99,6 @@ void draw() {
     update();
   } else {
     readyBox.draw();
-
     if(context.isTrackingSkeleton(1)) {
       play = true;
       timer.start();

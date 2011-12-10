@@ -5,7 +5,7 @@ class Student extends BoundingBox {
   boolean alive;
 
   Student() {
-    super(int(random(0, 300)), 0, 20, 20);
+    super(int(random(0, width)), 0, 20, 20);
     col = color(0, 200, 0);
     alive = true;
     alienImg = loadImage("man.png");
