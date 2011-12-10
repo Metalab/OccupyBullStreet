@@ -35,6 +35,7 @@ Minim         minim;
 int           studentCount;
 
 PImage        titleImg;
+PImage        bullImg;
 
 Road roadBg = new Road();
 
@@ -58,11 +59,7 @@ void setup() {
   fs = new FullScreen(this);
   size(640, 480);
 
-  if(usekinect) {
-    context = new SimpleOpenNI(this);
-    context.setMirror(true);
-  }
-
+  if(usekinect) context = new SimpleOpenNI(this);
 
   readyBox = new ReadyBox();
   minim = new Minim(this);
@@ -80,6 +77,7 @@ void setup() {
   if(usekinect) context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
 
   titleImg = loadImage("title.jpg");
+  bullImg = loadImage("bull.png");
   roadBg.setup("street.jpg");
 
   font = createFont("din", 24);
@@ -153,7 +151,9 @@ void drawSkeleton(int userId) {
     bull = new Bull(neck.x, neck.y);
   }
 
-  bull.setPosition(neck.x, neck.y+100);
+  float distanceToMiddle = width/2 - neck.x;
+
+  bull.setPosition(neck.x - distanceToMiddle*-2, neck.y+100);
 }
 
 // -----------------------------------------------------------------
