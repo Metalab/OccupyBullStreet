@@ -67,6 +67,7 @@ void setup() {
   if(usekinect) {
     size(context.depthWidth(), context.depthHeight());
   } else {
+    bull = new Bull(width/2, height/2);
     size(800,600);
   }
   // enter fullscreen mode
