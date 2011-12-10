@@ -28,10 +28,12 @@ Timer         timer;
 
 HighScore     score;
 
+Road roadBg = new Road();
+
 void setup() {
   
-  usekinect = true;
-  play = false;
+  usekinect = false;
+  play = true;
   dead = false;
   neck_kinect = new PVector();
   neck = new PVector();
@@ -53,12 +55,14 @@ void setup() {
   if(usekinect) context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
 
   background(200,0,0);
+  roadBg.setup("street.jpg");
   smooth();
   size(1024, 768);
 }
 
 void draw() {
   background(0, 0, 0);
+  roadBg.draw();
   if(usekinect) context.update();
 
   if (play && !dead) {
@@ -84,10 +88,12 @@ void draw() {
       play = true;
       timer.start();
     }
+    update();
   }
 }
 
 void update() {
+  roadBg.update();
   for (int i = students.size()-1; i >= 0; i--) {
     Student student = (Student) students.get(i);
     student.update();
