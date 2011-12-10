@@ -21,5 +21,6 @@ class Bull extends BoundingBox{
     stroke(col);
     fill(col);
     rect(this.x, this.y, w, h);
+    noFill();
   }
 }

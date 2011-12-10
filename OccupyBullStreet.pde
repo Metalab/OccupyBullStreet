@@ -66,7 +66,7 @@ void setup() {
   timer = new Timer(10000);
   timerBox = new TimerBox(timer, minim);
 
-  for (int i = 0; i <= studentCount; i++) {
+  for (int i = 0; i <= studentCount-1; i++) {
      students.add(new Student());
   }
 
@@ -108,18 +108,24 @@ void draw() {
       dead = true;
     }
 
+    if(students.size()<studentCount){
+      students.add(new Student());
+    }
+
     for (int i = students.size()-1; i >= 0; i--) {
       Student student = (Student) students.get(i);
+      if(student.isOutsideScreen()){
+        students.remove(i);
+        continue;
+      }
 
       if(student.alive) {
-        student.draw();
         if(student.overlaps(bull)) {
           scoreBox.scoreFuckYeah();
-          student.alive = false;
+          student.die();
         }
-      } else {
-        student.alive=true;
       }
+      student.draw();
     }
   } else {
     image(titleImg, 0, 0);
@@ -138,7 +144,7 @@ void draw() {
 
 void update() {
   roadBg.update();
-  
+
   for (int i = students.size()-1; i >= 0; i--) {
     Student student = (Student) students.get(i);
     student.update();
