@@ -20,12 +20,12 @@ PVector       neck_kinect;
 PVector       neck;
 
 ArrayList     students;
-Bull        bull;
+Bull          bull;
 
-boolean     play;
-boolean     dead;
-boolean     usekinect;
-ReadyBox    readyBox;
+boolean       play;
+boolean       dead;
+boolean       usekinect;
+ReadyBox      readyBox;
 
 Timer         timer;
 int           studentCount;
