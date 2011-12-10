@@ -8,7 +8,7 @@ class Student extends BoundingBox {
     super(int(random(0, 300)), 0, 20, 20);
     col = color(0, 200, 0);
     alive = true;
-    alienImg = loadImage("man.png");
+    alienImg = loadImage("protestor.03.up.png");
   }
 
   // update the position
