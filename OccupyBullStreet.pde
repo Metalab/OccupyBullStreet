@@ -25,9 +25,11 @@ ReadyBox      readyBox;
 
 Timer         timer;
 
+HighScore     score;
+
 void setup() {
   
-  play = false;
+  play = true;
   dead = false;
   neck_kinect = new PVector();
   neck = new PVector();
@@ -35,6 +37,7 @@ void setup() {
   context = new SimpleOpenNI(this);
   readyBox = new ReadyBox();
   timer = new Timer(20000);
+  score = new HighScore();
 
   for (int i = 0; i <= 30; i++) {
     students.add(new Student());
@@ -46,15 +49,8 @@ void setup() {
   // enable skeleton generation for all joints
   context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
 
-  for (int i = students.size()-1; i >= 0; i--) {
-    Student student = (Student) students.get(i);
-    student.draw();
-  }
-
   background(200,0,0);
 
-  stroke(0,0,255);
-  strokeWeight(3);
   smooth();
   
   size(context.depthWidth(), context.depthHeight()); 
@@ -70,6 +66,12 @@ void draw() {
     if (timer.isFinished()) {
       dead = true;
     }
+
+    for (int i = students.size()-1; i >= 0; i--) {
+      Student student = (Student) students.get(i);
+      student.draw();
+    }
+
     update();
   } else {
     readyBox.draw();
@@ -96,6 +98,8 @@ void drawSkeleton(int userId) {
   context.convertRealWorldToProjective(neck_kinect, neck);
 
   rectMode(CENTER);
+  stroke(204, 102, 0);
+  noFill();
   rect(neck.x, neck.y+100, 150, 200);
 }
 
