@@ -3,7 +3,7 @@ class Student extends BoundingBox {
   float speed = int(random(10, 40));
 
   Student() {
-    super(int(random(0, 200)), 0, 20, 20);
+    super(int(random(0, 300)), 0, 20, 20);
     col = color(0, 200, 0);
   }
 

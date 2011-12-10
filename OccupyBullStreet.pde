@@ -15,23 +15,33 @@ SimpleOpenNI  context;
 PVector       neck_kinect;
 PVector       neck;
 ArrayList     students;
+boolean       play;
+ReadyBox      readyBox;
 
 void setup() {
   
+  play = false;
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
   context = new SimpleOpenNI(this);
-  students.add(new Student());
-  students.add(new Student());
-  students.add(new Student());
+  readyBox = new ReadyBox();
+
+  for (int i = 0; i <= 30; i++) {
+    students.add(new Student());
+  }
 
   // enable depthMap generation 
   context.enableDepth();
 
   // enable skeleton generation for all joints
   context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
- 
+
+  for (int i = students.size()-1; i >= 0; i--) {
+    Student student = (Student) students.get(i);
+    student.draw();
+  }
+
   background(200,0,0);
 
   stroke(0,0,255);
@@ -41,24 +51,20 @@ void setup() {
   size(context.depthWidth(), context.depthHeight()); 
 }
 
-void draw()
-{
-  // update the cam
+void draw() {
+  background(0, 0, 0);
   context.update();
-  
-  // draw depthImageMap
-  image(context.depthImage(),0,0);
-  
-  for (int i = students.size()-1; i >= 0; i--) {
-    Student student = (Student) students.get(i);
-    student.draw();
-  }
-  
-  // draw the skeleton if it's available
-  if(context.isTrackingSkeleton(1))
+
+  if (play) {
     drawSkeleton(1);
-  
-  update();
+    update();
+  } else {
+    readyBox.draw();
+
+    if(context.isTrackingSkeleton(1)) {
+      play = true;
+    }
+  }
 }
 
 void update() {
@@ -86,6 +92,7 @@ void onNewUser(int userId) {
   println("onNewUser - userId: " + userId);
   println("  start pose detection");
   
+  readyBox.col = color(240, 226, 80);
   context.startPoseDetection("Psi",userId);
 }
 
@@ -101,6 +108,8 @@ void onEndCalibration(int userId, boolean successfull) {
   println("onEndCalibration - userId: " + userId + ", successfull: " + successfull);
 
   if (successfull) {
+    readyBox.col = color(0, 255, 0);
+
     println("  User calibrated !!!");
     context.startTrackingSkeleton(userId); 
   } else {
