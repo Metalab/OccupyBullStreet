@@ -1,8 +1,8 @@
 class Bull extends BoundingBox{  
   color col;
   
-  Bull(){
-    super(width/2, height-200/2, 150, 200);
+  Bull(float x, float y){
+    super(x, y, 150, 200);
     col = color(126, 255, 102);
   }
   
@@ -11,8 +11,8 @@ class Bull extends BoundingBox{
   }
 
   void setPosition(float x, float y){
-    this.x=x;
-    this.y=y; 
+    this.x = x;
+    this.y = y;
   }
   
   void draw()
