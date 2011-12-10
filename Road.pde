@@ -18,18 +18,18 @@ class Road
     w = roadImg.width;
     h = roadImg.height;
     x = 0;
-    y = -768;
+    y = -480;
   }
   
   void resetPos()
   {
-    y = -768;
+    y = -480;
   }
   
   void update()
   {
     y += speed;
-    if (y >= 50)
+    if (y >= 24)
     {
       resetPos();
     }
