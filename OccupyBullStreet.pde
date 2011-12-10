@@ -110,10 +110,16 @@ void draw() {
 
     for (int i = students.size()-1; i >= 0; i--) {
       Student student = (Student) students.get(i);
-      if(student.alive)student.draw();
-       if(student.overlaps(bull)){
-          student.alive=false;
-      } else student.alive=true;
+
+      if(student.alive) {
+        student.draw();
+        if(student.overlaps(bull)) {
+          scoreBox.scoreFuckYeah();
+          student.alive = false;
+        }
+      } else {
+        student.alive=true;
+      }
     }
   } else {
     image(titleImg, 0, 0);
