@@ -37,7 +37,6 @@ Minim         minim;
 int           studentCount;
 
 PImage        titleImg;
-PImage        bullImg;
 
 Road roadBg = new Road();
 
@@ -80,7 +79,6 @@ void setup() {
   if(usekinect) context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
 
   titleImg = loadImage("title.jpg");
-  bullImg = loadImage("bull.png");
   roadBg.setup("street.jpg");
 
   font = createFont("din", 24);
