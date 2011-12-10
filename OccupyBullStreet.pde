@@ -33,9 +33,14 @@ int           studentCount;
 Road roadBg = new Road();
 
 void setup() {
-  
-  usekinect = false;
-  play = true;
+  usekinect = true;
+
+  if (usekinect) {
+    play = false;
+  } else {
+    play = true;
+  }
+
   dead = false;
   neck_kinect = new PVector();
   neck = new PVector();
@@ -49,7 +54,6 @@ void setup() {
 
   readyBox = new ReadyBox();
   timer = new Timer(20000);
-  score = 0;
 
   for (int i = 0; i <= studentCount; i++) {
      students.add(new Student());
