@@ -4,7 +4,7 @@
  * Metalab Game Dev Weekend
  * https://github.com/Metalab/OccupyBullStreet
  * --------------------------------------------------------------------------
- * prog:  Benjamin Fritsch / Kristin Albert / Jayme "The Bear" Cochrane
+ * prog:  Beaniejamin Fritsch / Kristin Albert / Jayme "The Bear" Cochrane
  * date:  12/09/2011 (m/d/y)
  * ----------------------------------------------------------------------------
  */
@@ -28,16 +28,17 @@ boolean       dead;
 boolean       usekinect;
 ReadyBox      readyBox;
 
-TimerBox      timerBox;
+TimerBox      timerbox;
 Timer         timer;
 Minim         minim;
 
-ScoreBox      scoreBox;
 int           studentCount;
 
 PImage        titleImg;
 
 Road roadBg = new Road();
+
+PFont         font;
 
 void setup() {
   usekinect = false;
@@ -59,12 +60,10 @@ void setup() {
 
   if(usekinect) context = new SimpleOpenNI(this);
 
-  scoreBox = new ScoreBox();
-
   readyBox = new ReadyBox();
   minim = new Minim(this);
   timer = new Timer(10000);
-  timerBox = new TimerBox(timer, minim);
+  timerbox = new TimerBox(timer, minim);
 
   for (int i = 0; i <= studentCount; i++) {
      students.add(new Student());
@@ -78,6 +77,10 @@ void setup() {
 
   titleImg = loadImage("title.jpg");
   roadBg.setup("street.jpg");
+
+  font = createFont("din", 24);
+  textFont(font);
+
   smooth();
 
   if(usekinect) {
@@ -101,8 +104,7 @@ void draw() {
     
     bull.draw();
 
-    timerBox.draw();
-    scoreBox.draw();
+    timerbox.draw();
 
     if (timer.isFinished()) {
       dead = true;
@@ -110,22 +112,13 @@ void draw() {
 
     for (int i = students.size()-1; i >= 0; i--) {
       Student student = (Student) students.get(i);
-
-      if(student.alive) {
-        student.draw();
-        if(student.overlaps(bull)) {
-          scoreBox.scoreFuckYeah();
-          student.alive = false;
-        }
-      } else {
-        student.alive=true;
-      }
+      if(student.alive)student.draw();
+       if(student.overlaps(bull)){
+          student.alive=false;
+      } else student.alive=true;
     }
   } else {
     image(titleImg, 0, 0);
-
-    if (scoreBox.hasScoredYet) scoreBox.draw();
-
     readyBox.draw();
     if(context.isTrackingSkeleton(1)) {
       play = true;
