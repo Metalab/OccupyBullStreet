@@ -28,16 +28,18 @@ boolean       dead;
 boolean       usekinect;
 ReadyBox      readyBox;
 
-TimerBox      timerBox;
+TimerBox      timerbox;
 Timer         timer;
 Minim         minim;
 
-ScoreBox      scoreBox;
 int           studentCount;
 
 PImage        titleImg;
+PImage        bullImg;
 
 Road roadBg = new Road();
+
+PFont         font;
 
 void setup() {
   usekinect = false;
@@ -59,12 +61,10 @@ void setup() {
 
   if(usekinect) context = new SimpleOpenNI(this);
 
-  scoreBox = new ScoreBox();
-
   readyBox = new ReadyBox();
   minim = new Minim(this);
   timer = new Timer(10000);
-  timerBox = new TimerBox(timer, minim);
+  timerbox = new TimerBox(timer, minim);
 
   for (int i = 0; i <= studentCount-1; i++) {
      students.add(new Student());
@@ -77,7 +77,12 @@ void setup() {
   if(usekinect) context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
 
   titleImg = loadImage("title.jpg");
+  bullImg = loadImage("bull.png");
   roadBg.setup("street.jpg");
+
+  font = createFont("din", 24);
+  textFont(font);
+
   smooth();
 
   if(usekinect) {
@@ -101,8 +106,7 @@ void draw() {
     
     bull.draw();
 
-    timerBox.draw();
-    scoreBox.draw();
+    timerbox.draw();
 
     if (timer.isFinished()) {
       dead = true;
@@ -129,9 +133,6 @@ void draw() {
     }
   } else {
     image(titleImg, 0, 0);
-
-    if (scoreBox.hasScoredYet) scoreBox.draw();
-
     readyBox.draw();
     if(context.isTrackingSkeleton(1)) {
       play = true;
