@@ -58,7 +58,11 @@ void setup() {
   fs = new FullScreen(this);
   size(640, 480);
 
-  if(usekinect) context = new SimpleOpenNI(this);
+  if(usekinect) {
+    context = new SimpleOpenNI(this);
+    context.setMirror(true);
+  }
+
 
   readyBox = new ReadyBox();
   minim = new Minim(this);
@@ -149,9 +153,7 @@ void drawSkeleton(int userId) {
     bull = new Bull(neck.x, neck.y);
   }
 
-  float distanceToMiddle = width/2 - neck.x;
-
-  bull.setPosition(neck.x - distanceToMiddle*-2, neck.y+100);
+  bull.setPosition(neck.x, neck.y+100);
 }
 
 // -----------------------------------------------------------------
