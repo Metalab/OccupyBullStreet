@@ -20,16 +20,16 @@ PVector       neck_kinect;
 PVector       neck;
 
 ArrayList     students;
-Bull          bull;
+Bull        bull;
 
-boolean       play;
-boolean       dead;
-boolean       usekinect;
-ReadyBox      readyBox;
+boolean     play;
+boolean     dead;
+boolean     usekinect;
+ReadyBox    readyBox;
 
-Timer         timer;
+Timer       timer;
 
-HighScore     score;
+double      score;
 
 Road roadBg = new Road();
 
@@ -46,7 +46,7 @@ void setup() {
 
   readyBox = new ReadyBox();
   timer = new Timer(20000);
-  score = new HighScore();
+  score = 0;
 
   for (int i = 0; i <= 30; i++) {
     students.add(new Student());
