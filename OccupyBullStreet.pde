@@ -92,8 +92,8 @@ void onNewUser(int userId) {
   println("onNewUser - userId: " + userId);
   println("  start pose detection");
   
-  readyBox.col = color(240, 226, 80);
   context.startPoseDetection("Psi",userId);
+  readyBox.move();
 }
 
 void onLostUser(int userId) {
@@ -108,7 +108,7 @@ void onEndCalibration(int userId, boolean successfull) {
   println("onEndCalibration - userId: " + userId + ", successfull: " + successfull);
 
   if (successfull) {
-    readyBox.col = color(0, 255, 0);
+    readyBox.ready();
 
     println("  User calibrated !!!");
     context.startTrackingSkeleton(userId); 
