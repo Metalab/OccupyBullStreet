@@ -6,14 +6,14 @@ class Bull extends BoundingBox{
   
   Bull(float x, float y){
     super(x, y, 150, 200);
-    bullFrames = new Frames("bull_", "png", 2);
+    bullFrames = new Frames("bull_", "png", 8);
     col = color(126, 255, 102);
   }
   
   PImage nextFrameImage() {
     PImage currentImage = bullFrames.images[currentFrame];
 
-    if (frameCounter % 5 == 0) {
+    if (frameCounter % 4 == 0) {
       currentFrame++;
     }
 

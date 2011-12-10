@@ -65,7 +65,7 @@ void setup() {
   scoreBox = new ScoreBox();
   readyBox = new ReadyBox();
   minim = new Minim(this);
-  timer = new Timer(10000);
+  timer = new Timer(100000);
   timerBox = new TimerBox(timer, minim);
 
   for (int i = 0; i <= studentCount-1; i++) {
