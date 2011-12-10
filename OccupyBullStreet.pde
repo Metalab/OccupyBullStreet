@@ -12,20 +12,29 @@
 import SimpleOpenNI.*;
 
 SimpleOpenNI  context;
+
 PVector       neck_kinect;
 PVector       neck;
+
 ArrayList     students;
+
 boolean       play;
+boolean       dead;
+
 ReadyBox      readyBox;
+
+Timer         timer;
 
 void setup() {
   
   play = false;
+  dead = false;
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
   context = new SimpleOpenNI(this);
   readyBox = new ReadyBox();
+  timer = new Timer(20000);
 
   for (int i = 0; i <= 30; i++) {
     students.add(new Student());
@@ -55,14 +64,19 @@ void draw() {
   background(0, 0, 0);
   context.update();
 
-  if (play) {
+  if (play && !dead) {
     drawSkeleton(1);
+    text(timer.remainingTime()/1000, 15, 30);
+    if (timer.isFinished()) {
+      dead = true;
+    }
     update();
   } else {
     readyBox.draw();
 
     if(context.isTrackingSkeleton(1)) {
       play = true;
+      timer.start();
     }
   }
 }
