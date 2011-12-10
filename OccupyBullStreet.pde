@@ -1,16 +1,17 @@
 /* --------------------------------------------------------------------------
- * SimpleOpenNI User Test
+ * Occupy Bull Street
  * --------------------------------------------------------------------------
- * Processing Wrapper for the OpenNI/Kinect library
- * http://code.google.com/p/simple-openni
+ * Metalab Game Dev Weekend
+ * https://github.com/Metalab/OccupyBullStreet
  * --------------------------------------------------------------------------
- * prog:  Max Rheiner / Interaction Design / zhdk / http://iad.zhdk.ch/
- * date:  02/16/2011 (m/d/y)
+ * prog:  Benjamin Fritsch / Kristin Albert / Jayme "The Bear" Cochrane
+ * date:  12/09/2011 (m/d/y)
  * ----------------------------------------------------------------------------
  */
 
 import SimpleOpenNI.*;
 import fullscreen.*;
+import ddf.minim.*;
 
 FullScreen fs;
 
@@ -27,7 +28,10 @@ boolean       dead;
 boolean       usekinect;
 ReadyBox      readyBox;
 
+TimerBox      timerbox;
 Timer         timer;
+Minim         minim;
+
 int           studentCount;
 
 PImage        titleImg;
@@ -35,7 +39,7 @@ PImage        titleImg;
 Road roadBg = new Road();
 
 void setup() {
-  usekinect = true;
+  usekinect = false;
 
   if (usekinect) {
     play = false;
@@ -47,7 +51,7 @@ void setup() {
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
-  studentCount = 10;
+  studentCount = 2;
 
   fs = new FullScreen(this);
   size(640, 480);
@@ -55,7 +59,9 @@ void setup() {
   if(usekinect) context = new SimpleOpenNI(this);
 
   readyBox = new ReadyBox();
-  timer = new Timer(20000);
+  minim = new Minim(this);
+  timer = new Timer(10000);
+  timerbox = new TimerBox(timer, minim);
 
   for (int i = 0; i <= studentCount; i++) {
      students.add(new Student());
@@ -81,14 +87,19 @@ void setup() {
 }
 
 void draw() {
+  // draw background
   background(0, 0, 0);
   roadBg.draw();
+
   if(usekinect) context.update();
 
   if (play && !dead) {
     if(usekinect) drawSkeleton(1);
+    
     bull.draw();
-    text(timer.remainingTime()/1000, 15, 30);
+
+    timerbox.draw();
+
     if (timer.isFinished()) {
       dead = true;
     }
@@ -114,6 +125,7 @@ void draw() {
 
 void update() {
   roadBg.update();
+  
   for (int i = students.size()-1; i >= 0; i--) {
     Student student = (Student) students.get(i);
     student.update();
