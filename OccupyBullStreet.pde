@@ -32,6 +32,7 @@ TimerBox      timerbox;
 Timer         timer;
 Minim         minim;
 
+ScoreBox      scoreBox;
 int           studentCount;
 
 PImage        titleImg;
@@ -57,6 +58,8 @@ void setup() {
   size(640, 480);
 
   if(usekinect) context = new SimpleOpenNI(this);
+
+  scoreBox = new ScoreBox();
 
   readyBox = new ReadyBox();
   minim = new Minim(this);
@@ -99,6 +102,7 @@ void draw() {
     bull.draw();
 
     timerbox.draw();
+    scoreBox.draw();
 
     if (timer.isFinished()) {
       dead = true;
@@ -113,6 +117,9 @@ void draw() {
     }
   } else {
     image(titleImg, 0, 0);
+
+    if (scoreBox.hasScoredYet) scoreBox.draw();
+
     readyBox.draw();
     if(context.isTrackingSkeleton(1)) {
       play = true;
