@@ -28,7 +28,7 @@ boolean       dead;
 boolean       usekinect;
 ReadyBox      readyBox;
 
-TimerBox      timerbox;
+TimerBox      timerBox;
 Timer         timer;
 Minim         minim;
 
@@ -64,7 +64,7 @@ void setup() {
   readyBox = new ReadyBox();
   minim = new Minim(this);
   timer = new Timer(10000);
-  timerbox = new TimerBox(timer, minim);
+  timerBox = new TimerBox(timer, minim);
 
   for (int i = 0; i <= studentCount; i++) {
      students.add(new Student());
@@ -101,7 +101,7 @@ void draw() {
     
     bull.draw();
 
-    timerbox.draw();
+    timerBox.draw();
     scoreBox.draw();
 
     if (timer.isFinished()) {
