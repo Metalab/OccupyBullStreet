@@ -10,6 +10,9 @@
  */
 
 import SimpleOpenNI.*;
+import fullscreen.*;
+
+FullScreen fs;
 
 SimpleOpenNI  context;
 
@@ -29,7 +32,6 @@ Timer         timer;
 HighScore     score;
 
 void setup() {
-  
   usekinect = true;
   play = false;
   dead = false;
@@ -56,12 +58,15 @@ void setup() {
   background(200,0,0);
   smooth();
 
+  fs = new FullScreen(this);
 
   if(usekinect) {
     size(context.depthWidth(), context.depthHeight());
   } else {
     size(800,600);
   }
+  // enter fullscreen mode
+  //fs.enter();
 }
 
 void draw() {
