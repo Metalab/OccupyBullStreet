@@ -68,7 +68,7 @@ void setup() {
     size(context.depthWidth(), context.depthHeight());
   } else {
     bull = new Bull(width/2, height/2);
-    size(800,600);
+    size(640, 480);
   }
   // enter fullscreen mode
   //fs.enter();
