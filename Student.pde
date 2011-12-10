@@ -14,8 +14,11 @@ class Student extends BoundingBox {
   // update the position
   void update() {
     y += speed;
-    if(y >= height) y = 0;
-  }
+    if(y-h/2 >= height) {
+      x=int(random(0, width));
+      y=0;
+    }
+ }
 
   void draw() {
       w = alienImg.width;

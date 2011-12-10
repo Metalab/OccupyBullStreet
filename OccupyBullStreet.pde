@@ -72,7 +72,7 @@ void setup() {
   if(usekinect) {
     size(context.depthWidth(), context.depthHeight());
   } else {
-    bull = new Bull(width/2, height/2);
+    bull = new Bull(width/2, height-100);
   }
   // enter fullscreen mode
   //fs.enter();
@@ -85,7 +85,7 @@ void draw() {
 
   if (play && !dead) {
     if(usekinect) drawSkeleton(1);
-
+    bull.draw();
     text(timer.remainingTime()/1000, 15, 30);
     if (timer.isFinished()) {
       dead = true;
@@ -131,7 +131,6 @@ void drawSkeleton(int userId) {
   float distanceToMiddle = width/2 - neck.x;
 
   bull.setPosition(neck.x - distanceToMiddle*-2, neck.y+100);
-  bull.draw();
 }
 
 // -----------------------------------------------------------------
