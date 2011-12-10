@@ -1,10 +1,12 @@
 class Student extends BoundingBox {
   color col;
-  float speed = int(random(10, 40));
+  float speed = int(random(1, 10));
+  PImage alienImg;
 
   Student() {
     super(int(random(0, 300)), 0, 20, 20);
     col = color(0, 200, 0);
+    alienImg = loadImage("man.png");
   }
 
   // update the position
@@ -13,9 +15,8 @@ class Student extends BoundingBox {
   }
 
   void draw() {
-    ellipseMode(CORNER);
-    stroke(col);
-    fill(col);
-    ellipse(x, y, w, h);
+    w = alienImg.width;
+    h = alienImg.height;
+    image(alienImg, x, y);
   }
 }
