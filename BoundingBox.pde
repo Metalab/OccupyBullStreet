@@ -1,5 +1,4 @@
-class BoundingBox
-{
+class BoundingBox {
   // variables
   float x;
   float y;
@@ -7,8 +6,7 @@ class BoundingBox
   float h;
 
   // constructor
-  BoundingBox(int x, int y, int w, int h)
-  {
+  BoundingBox(int x, int y, int w, int h) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -16,8 +14,7 @@ class BoundingBox
   }
 
   // returns true if the given box overlaps
-  boolean overlaps(BoundingBox box)
-  {
+  boolean overlaps(BoundingBox box) {
     return (box.x+box.w >= x && // does box's right edge overlap the other's left edge
       box.x <= x+w && // does box's left edge overlap the other's right edge
       box.y+box.h >= y && // does box's bottom edge overlap the other's top edge

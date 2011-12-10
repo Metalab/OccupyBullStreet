@@ -12,8 +12,7 @@ class Student extends BoundingBox {
     y += speed;
   }
 
-  void draw()
-  {
+  void draw() {
     ellipseMode(CORNER);
     stroke(col);
     fill(col);

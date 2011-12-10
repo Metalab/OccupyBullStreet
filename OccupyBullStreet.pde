@@ -16,8 +16,7 @@ PVector       neck_kinect;
 PVector       neck;
 ArrayList     students;
 
-void setup()
-{
+void setup() {
   
   neck_kinect = new PVector();
   neck = new PVector();
@@ -71,8 +70,7 @@ void update() {
 }
 
 // draw the skeleton with the selected joints
-void drawSkeleton(int userId)
-{
+void drawSkeleton(int userId) {
   // to get the 3d joint data
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_NECK, neck_kinect);
   context.convertRealWorldToProjective(neck_kinect, neck);
@@ -84,53 +82,43 @@ void drawSkeleton(int userId)
 // -----------------------------------------------------------------
 // SimpleOpenNI events
 
-void onNewUser(int userId)
-{
+void onNewUser(int userId) {
   println("onNewUser - userId: " + userId);
   println("  start pose detection");
   
   context.startPoseDetection("Psi",userId);
 }
 
-void onLostUser(int userId)
-{
+void onLostUser(int userId) {
   println("onLostUser - userId: " + userId);
 }
 
-void onStartCalibration(int userId)
-{
+void onStartCalibration(int userId) {
   println("onStartCalibration - userId: " + userId);
 }
 
-void onEndCalibration(int userId, boolean successfull)
-{
+void onEndCalibration(int userId, boolean successfull) {
   println("onEndCalibration - userId: " + userId + ", successfull: " + successfull);
 
-  if (successfull) 
-  { 
+  if (successfull) {
     println("  User calibrated !!!");
     context.startTrackingSkeleton(userId); 
-  } 
-  else 
-  { 
+  } else {
     println("  Failed to calibrate user !!!");
     println("  Start pose detection");
     context.startPoseDetection("Psi",userId);
   }
 }
 
-void onStartPose(String pose,int userId)
-{
+void onStartPose(String pose,int userId) {
   println("onStartPose - userId: " + userId + ", pose: " + pose);
   println(" stop pose detection");
-  
+
   context.stopPoseDetection(userId); 
   context.requestCalibrationSkeleton(userId, true);
- 
 }
 
-void onEndPose(String pose,int userId)
-{
+void onEndPose(String pose,int userId) {
   println("onEndPose - userId: " + userId + ", pose: " + pose);
 }
 
