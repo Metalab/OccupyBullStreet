@@ -106,8 +106,10 @@ void onNewUser(int userId) {
   println("onNewUser - userId: " + userId);
   println("  start pose detection");
   
-  context.startPoseDetection("Psi",userId);
   readyBox.move();
+  if (userId == 1) {
+    context.startPoseDetection("Psi", userId);
+  }
 }
 
 void onLostUser(int userId) {
