@@ -19,6 +19,7 @@ class Student extends BoundingBox {
     alive = true;
     outsideScreen = false;
     x = lanes[laneIndex];
+    y = int(random(-800, 0));
     alienImg = loadImage(images[imgIndex]+".up.png");
   }
 
