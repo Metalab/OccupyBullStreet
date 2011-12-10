@@ -36,8 +36,9 @@ void setup() {
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
-  if(usekinect)context = new SimpleOpenNI(this);
-  bull = new Bull();
+
+  if(usekinect) context = new SimpleOpenNI(this);
+
   readyBox = new ReadyBox();
   timer = new Timer(20000);
   score = new HighScore();
@@ -54,7 +55,13 @@ void setup() {
 
   background(200,0,0);
   smooth();
-  size(1024, 768);
+
+
+  if(usekinect) {
+    size(context.depthWidth(), context.depthHeight());
+  } else {
+    size(800,600);
+  }
 }
 
 void draw() {
@@ -63,6 +70,7 @@ void draw() {
 
   if (play && !dead) {
     if(usekinect) drawSkeleton(1);
+
     text(timer.remainingTime()/1000, 15, 30);
     if (timer.isFinished()) {
       dead = true;
@@ -73,7 +81,7 @@ void draw() {
       if(student.alive)student.draw();
        if(student.overlaps(bull)){
           student.alive=false;
-      }else student.alive=true;
+      } else student.alive=true;
     }
 
     update();
@@ -101,9 +109,14 @@ void drawSkeleton(int userId) {
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_NECK, neck_kinect);
   context.convertRealWorldToProjective(neck_kinect, neck);
 
-  bull.setPosition(neck.x, neck.y+100);
-  bull.draw();
+  if (bull == null) {
+    bull = new Bull(neck.x, neck.y);
+  }
 
+  float distanceToMiddle = width/2 - neck.x;
+
+  bull.setPosition(neck.x - distanceToMiddle*-2, neck.y+100);
+  bull.draw();
 }
 
 // -----------------------------------------------------------------

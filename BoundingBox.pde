@@ -6,7 +6,7 @@ class BoundingBox {
   float h;
 
   // constructor
-  BoundingBox(int x, int y, int w, int h) {
+  BoundingBox(float x, float y, int w, int h) {
     this.x = x;
     this.y = y;
     this.w = w;
