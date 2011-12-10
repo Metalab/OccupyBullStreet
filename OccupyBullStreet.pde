@@ -20,16 +20,15 @@ PVector       neck_kinect;
 PVector       neck;
 
 ArrayList     students;
-Bull          bull;
+Bull        bull;
 
-boolean       play;
-boolean       dead;
-boolean       usekinect;
-ReadyBox      readyBox;
+boolean     play;
+boolean     dead;
+boolean     usekinect;
+ReadyBox    readyBox;
 
 Timer         timer;
 int           studentCount;
-HighScore     score;
 
 Road roadBg = new Road();
 
@@ -50,7 +49,7 @@ void setup() {
 
   readyBox = new ReadyBox();
   timer = new Timer(20000);
-  score = new HighScore();
+  score = 0;
 
   for (int i = 0; i <= studentCount; i++) {
      students.add(new Student());
@@ -95,16 +94,15 @@ void draw() {
           student.alive=false;
       } else student.alive=true;
     }
-
-    update();
   } else {
     readyBox.draw();
     if(context.isTrackingSkeleton(1)) {
       play = true;
       timer.start();
     }
-    update();
   }
+
+  update();
 }
 
 void update() {
