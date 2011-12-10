@@ -3,11 +3,11 @@ class HighScore {
   String[] scores;
 
   HighScore() {
-    scores = loadStrings(filename);
+    //scores = loadStrings(filename);
   }
 
-  void addScore(score) {
-    scores.add(score=);
-    saveStrings(filename, scores);
-  }
+  //void addScore(score) {
+ //   scores.add(score);
+ //   saveStrings(filename, scores);
+  //}
 }
