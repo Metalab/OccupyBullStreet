@@ -107,8 +107,6 @@ void draw() {
   if (play && !dead) {
     if(usekinect) drawSkeleton(1);
     
-    bull.draw();
-
     scoreBox.draw();
     timerBox.draw();
 
@@ -135,6 +133,8 @@ void draw() {
       }
       student.draw();
     }
+    bull.draw();
+
   } else {
     image(titleImg, 0, 0);
     if (scoreBox.hasScoredYet) scoreBox.draw();

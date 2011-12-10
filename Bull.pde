@@ -17,7 +17,7 @@ class Bull extends BoundingBox{
   
   void draw()
   {
-    imageMode(CORNER);
+    imageMode(CENTER);
     image(bullImg, this.x, this.y);
   }
 }
