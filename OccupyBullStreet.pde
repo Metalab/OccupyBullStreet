@@ -67,7 +67,6 @@ void setup() {
   // enable skeleton generation for all joints
   if(usekinect) context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
 
-  background(200,0,0);
   titleImg = loadImage("title.jpg");
   roadBg.setup("street.jpg");
   smooth();
