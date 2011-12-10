@@ -15,9 +15,9 @@ class ReadyBox {
 
   // update the position
   void draw() {
-    rectMode(CENTER);
+    ellipseMode(CENTER);
     stroke(col);
     fill(col);
-    rect(100, 100, 100, 100);
+    ellipse(516, 447, 16, 16);
   }
 }

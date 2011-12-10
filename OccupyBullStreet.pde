@@ -30,6 +30,8 @@ ReadyBox      readyBox;
 Timer         timer;
 int           studentCount;
 
+PImage        titleImg;
+
 Road roadBg = new Road();
 
 void setup() {
@@ -66,6 +68,7 @@ void setup() {
   if(usekinect) context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
 
   background(200,0,0);
+  titleImg = loadImage("title.jpg");
   roadBg.setup("street.jpg");
   smooth();
 
@@ -99,6 +102,7 @@ void draw() {
       } else student.alive=true;
     }
   } else {
+    image(titleImg, 0, 0);
     readyBox.draw();
     if(context.isTrackingSkeleton(1)) {
       play = true;
