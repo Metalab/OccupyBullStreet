@@ -17,10 +17,11 @@ PVector       neck_kinect;
 PVector       neck;
 
 ArrayList     students;
+Bull          bull;
 
 boolean       play;
 boolean       dead;
-
+boolean       usekinect;
 ReadyBox      readyBox;
 
 Timer         timer;
@@ -29,12 +30,14 @@ HighScore     score;
 
 void setup() {
   
-  play = true;
+  usekinect = true;
+  play = false;
   dead = false;
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
-  context = new SimpleOpenNI(this);
+  if(usekinect)context = new SimpleOpenNI(this);
+  bull = new Bull();
   readyBox = new ReadyBox();
   timer = new Timer(20000);
   score = new HighScore();
@@ -44,24 +47,26 @@ void setup() {
   }
 
   // enable depthMap generation 
-  context.enableDepth();
+  if(usekinect) context.enableDepth();
 
   // enable skeleton generation for all joints
-  context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
+  if(usekinect) context.enableUser(SimpleOpenNI.SKEL_PROFILE_UPPER);
 
   background(200,0,0);
 
   smooth();
   
-  size(context.depthWidth(), context.depthHeight()); 
+  if(usekinect){
+    size(context.depthWidth(), context.depthHeight());
+  }else size(800,600);
 }
 
 void draw() {
   background(0, 0, 0);
-  context.update();
+  if(usekinect) context.update();
 
   if (play && !dead) {
-    drawSkeleton(1);
+    if(usekinect) drawSkeleton(1);
     text(timer.remainingTime()/1000, 15, 30);
     if (timer.isFinished()) {
       dead = true;
@@ -69,7 +74,10 @@ void draw() {
 
     for (int i = students.size()-1; i >= 0; i--) {
       Student student = (Student) students.get(i);
-      student.draw();
+      if(student.alive)student.draw();
+       if(student.overlaps(bull)){
+          student.alive=false;
+      }else student.alive=true;
     }
 
     update();
@@ -97,10 +105,9 @@ void drawSkeleton(int userId) {
   context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_NECK, neck_kinect);
   context.convertRealWorldToProjective(neck_kinect, neck);
 
-  rectMode(CENTER);
-  stroke(204, 102, 0);
-  noFill();
-  rect(neck.x, neck.y+100, 150, 200);
+  bull.setPosition(neck.x, neck.y+100);
+  bull.draw();
+
 }
 
 // -----------------------------------------------------------------
