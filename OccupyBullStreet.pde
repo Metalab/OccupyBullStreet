@@ -94,8 +94,6 @@ void draw() {
           student.alive=false;
       } else student.alive=true;
     }
-
-    update();
   } else {
     readyBox.draw();
 
@@ -103,8 +101,9 @@ void draw() {
       play = true;
       timer.start();
     }
-    update();
   }
+
+  update();
 }
 
 void update() {
