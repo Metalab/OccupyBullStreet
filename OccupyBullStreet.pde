@@ -43,6 +43,7 @@ Road roadBg = new Road();
 
 PFont         font;
 int           level;
+int           playerId;
 
 void setup() {
   usekinect = false;
@@ -107,7 +108,7 @@ void draw() {
   if(usekinect) context.update();
 
   if (play && !dead) {
-    if(usekinect) drawSkeleton(1);
+    if(usekinect) drawSkeleton(playerId);
     
     scoreBox.draw();
     timerBox.draw();
@@ -152,9 +153,19 @@ void draw() {
       image(titleImg, 0, 0);
       if (scoreBox.hasScoredYet) scoreBox.draw();
       readyBox.draw();
-      if(context.isTrackingSkeleton(1)) {
-        play = true;
-        timer.start();
+
+      IntVector userList = new IntVector();
+      context.getUsers(userList);
+
+      for (int i = int(userList.size())-1; i >= 0; i--) {
+
+        int userId = userList.get(i);
+        if(context.isTrackingSkeleton(userId)) {
+          playerId = userId;
+          play = true;
+          dead = false;
+          timer.start();
+        }
       }
     }
   }
