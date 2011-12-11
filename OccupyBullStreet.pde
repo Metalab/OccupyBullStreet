@@ -168,17 +168,20 @@ void draw() {
       if (scoreBox.hasScoredYet) scoreBox.draw();
       readyBox.draw();
 
-      IntVector userList = new IntVector();
-      context.getUsers(userList);
+      if (usekinect) {
 
-      for (int i = int(userList.size())-1; i >= 0; i--) {
+        IntVector userList = new IntVector();
+        context.getUsers(userList);
 
-        int userId = userList.get(i);
-        if(context.isTrackingSkeleton(userId)) {
-          playerId = userId;
-          play = true;
-          dead = false;
-          timer.start();
+        for (int i = int(userList.size())-1; i >= 0; i--) {
+
+          int userId = userList.get(i);
+          if(context.isTrackingSkeleton(userId)) {
+            playerId = userId;
+            play = true;
+            dead = false;
+            timer.start();
+          }
         }
       }
     }
