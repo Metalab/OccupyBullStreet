@@ -35,14 +35,14 @@ class Bull extends BoundingBox{
   void draw()
   {
     PImage bullImg = nextFrameImage();
-    w = bullImg.width/1.5-10;
+    w = bullImg.width/1.5;
     h = bullImg.height/1.5;
     stroke(204, 102, 0);
     noFill();
     rectMode(CENTER);
     rect(x, y, w, h);
     imageMode(CENTER);
-    image(bullImg, this.x-5, this.y, w,h);
+    image(bullImg, this.x, this.y, w,h);
     noStroke();
   }
 }
