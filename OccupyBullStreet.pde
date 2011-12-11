@@ -106,7 +106,6 @@ void draw() {
     if (timer.isFinished()) {
       play = false;
       bull.pauseSound();
-      timerBox.pauseSound();
       protestersSong.pause();
       protestersSong.rewind();
     }
@@ -148,7 +147,6 @@ void draw() {
     bull.draw();
     scoreBox.draw();
     timerBox.draw();
-
   } else {
       image(titleImg, 0, 0);
       readyBox.draw();
@@ -174,6 +172,7 @@ void draw() {
 }
 
 void resetGame() {
+  timerBox = new TimerBox(timer, minim);
   students = new ArrayList();
   studentCount = 2;
   studentSpeed = 4;
@@ -186,6 +185,7 @@ void resetGame() {
 
   timer.start();
   scoreBox.clear();
+  protestersSong.rewind();
   protestersSong.loop();
 }
 
