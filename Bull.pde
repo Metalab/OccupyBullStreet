@@ -7,7 +7,7 @@ class Bull extends BoundingBox{
   
   Bull(Minim minim, float x, float y){
     super(x, y, 150, 200);
-    runSound = minim.loadFile("bull loop.aif");
+    runSound = minim.loadFile("bull_loop.mp3");
     runSound.loop();
     bullFrames = new Frames("bull_", "png", 8);
     col = color(126, 255, 102);
