@@ -184,6 +184,7 @@ void drawSkeleton(int userId) {
   bull.setPosition(neck.x - distanceToMiddle*-2, neck.y+100);
 }
 
+// backup keyboard controls
 void keyPressed() {
   switch(keyCode){
     case UP:
