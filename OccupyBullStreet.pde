@@ -55,7 +55,7 @@ void setup() {
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
-  studentCount = 2;
+  studentCount = 4;
 
   fs = new FullScreen(this);
   size(640, 480);
@@ -134,12 +134,14 @@ void draw() {
     bull.draw();
 
   } else {
-    image(titleImg, 0, 0);
-    if (scoreBox.hasScoredYet) scoreBox.draw();
-    readyBox.draw();
-    if(context.isTrackingSkeleton(1)) {
-      play = true;
-      timer.start();
+    if(usekinect){
+      image(titleImg, 0, 0);
+      if (scoreBox.hasScoredYet) scoreBox.draw();
+      readyBox.draw();
+      if(context.isTrackingSkeleton(1)) {
+        play = true;
+        timer.start();
+      }
     }
   }
 
@@ -153,7 +155,31 @@ void update() {
     Student student = (Student) students.get(i);
     student.update();
   }
+}
 
+void keyPressed() {
+  switch(keyCode){
+    case UP:
+      if(bull.y >= 0){
+        bull.setPosition(bull.x, bull.y -= 15);
+      }
+      break;
+    case DOWN:
+      if(bull.y <= height){
+        bull.setPosition(bull.x, bull.y += 15);
+      }
+      break;
+    case LEFT:
+      if(bull.x >= 0){
+        bull.setPosition(bull.x -= 15, bull.y);
+      }
+      break;
+    case RIGHT:
+      if(bull.x <= width){
+        bull.setPosition(bull.x += 15, bull.y);
+      }
+      break;
+  }
 }
 
 // draw the skeleton with the selected joints
