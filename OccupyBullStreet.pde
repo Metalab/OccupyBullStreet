@@ -100,12 +100,15 @@ void draw() {
   if (play) {
     if(usekinect) drawSkeleton(playerId);
 
+    bull.playSound();
+
     //end of game
     if (timer.isFinished()) {
       play = false;
+      bull.pauseSound();
+      timerBox.pauseSound();
       protestersSong.pause();
       protestersSong.rewind();
-      timerBox.pauseSound();
     }
 
     //keep track of level/difficulty
@@ -173,7 +176,7 @@ void draw() {
 void resetGame() {
   students = new ArrayList();
   studentCount = 2;
-  studentSpeed = 2;
+  studentSpeed = 4;
   level = 1;
   roadBg.speed = 4.0;
 
