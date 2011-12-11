@@ -169,6 +169,21 @@ void update() {
   }
 }
 
+// draw the skeleton with the selected joints
+void drawSkeleton(int userId) {
+  // to get the 3d joint data
+  context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_NECK, neck_kinect);
+  context.convertRealWorldToProjective(neck_kinect, neck);
+
+  if (bull == null) {
+    bull = new Bull(neck.x, neck.y);
+  }
+
+  float distanceToMiddle = width/2 - neck.x;
+
+  bull.setPosition(neck.x - distanceToMiddle*-2, neck.y+100);
+}
+
 void keyPressed() {
   switch(keyCode){
     case UP:
@@ -192,21 +207,6 @@ void keyPressed() {
       }
       break;
   }
-}
-
-// draw the skeleton with the selected joints
-void drawSkeleton(int userId) {
-  // to get the 3d joint data
-  context.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_NECK, neck_kinect);
-  context.convertRealWorldToProjective(neck_kinect, neck);
-
-  if (bull == null) {
-    bull = new Bull(neck.x, neck.y);
-  }
-
-  float distanceToMiddle = width/2 - neck.x;
-
-  bull.setPosition(neck.x - distanceToMiddle*-2, neck.y+100);
 }
 
 // -----------------------------------------------------------------
