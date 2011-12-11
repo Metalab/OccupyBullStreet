@@ -13,7 +13,7 @@ import SimpleOpenNI.*;
 import fullscreen.*;
 import ddf.minim.*;
 
-FullScreen fs;
+FullScreen    fs;
 
 SimpleOpenNI  context;
 
