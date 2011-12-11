@@ -122,6 +122,7 @@ void draw() {
     //keep track of level/difficulty
     if(timer.passedTime()/1000>=level*5) {
       level ++;
+      roadBg.speed += 2;
       studentCount += 2;
       studentSpeed += 2;
     }
