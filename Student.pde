@@ -21,7 +21,10 @@ class Student extends BoundingBox {
     outsideScreen = false;
     this.speed = speed;
     x = lanes[laneIndex];
-    y = int(random(-800, 0));
+    if(speed<=2){
+      y = 0;
+    }else y = int(random(-800, 0));
+
     alienImg = loadImage("protestor." + images[imgIndex] + ".up.png");
     dieSound = minim.loadFile("hit." + images[imgIndex] + ".aif");
   }
