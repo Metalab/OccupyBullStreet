@@ -5,6 +5,7 @@
  * https://github.com/Metalab/OccupyBullStreet
  * --------------------------------------------------------------------------
  * prog:  Benjamin Fritsch / Kristin Albert / Jayme "The Bear" Cochrane
+ * thanks to Lukas Hasitschka for the audio awesomness
  * date:  12/09/2011 (m/d/y)
  * ----------------------------------------------------------------------------
  */
