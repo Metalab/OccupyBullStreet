@@ -79,7 +79,7 @@ void setup() {
 
 
   for (int i = 0; i <= studentCount-1; i++) {
-     students.add(new Student(studentSpeed));
+     students.add(new Student(minim, studentSpeed));
   }
 
   // enable depthMap generation 
@@ -140,7 +140,7 @@ void draw() {
 
     //generate students
     if(students.size()<studentCount){
-      students.add(new Student(studentSpeed));
+      students.add(new Student(minim, studentSpeed));
     }
 
     //keep track of students on screen
