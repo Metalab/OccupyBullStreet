@@ -13,7 +13,7 @@ import SimpleOpenNI.*;
 import fullscreen.*;
 import ddf.minim.*;
 
-FullScreen fs;
+FullScreen    fs;
 
 SimpleOpenNI  context;
 
@@ -128,8 +128,9 @@ void draw() {
       protestersSong.close();
     }
 
-    //increase level/difficulty
-    if(timer.passedTime()/1000>=level*5){
+    //println("level: "+ level);
+
+    if(timer.passedTime()/1000>=level*5) {
       level ++;
       studentCount += 2;
       studentSpeed += 2;
@@ -155,6 +156,7 @@ void draw() {
           student.die();
         }
       }
+
       student.draw();
     }
 
@@ -199,25 +201,26 @@ void drawSkeleton(int userId) {
   bull.setPosition(neck.x - distanceToMiddle*-2, neck.y+100);
 }
 
+// backup keyboard controls
 void keyPressed() {
-  switch(keyCode){
+  switch(keyCode) {
     case UP:
-      if(bull.y >= 0){
+      if(bull.y >= 0) {
         bull.setPosition(bull.x, bull.y -= 15);
       }
       break;
     case DOWN:
-      if(bull.y <= height){
+      if(bull.y <= height) {
         bull.setPosition(bull.x, bull.y += 15);
       }
       break;
     case LEFT:
-      if(bull.x >= 0){
+      if(bull.x >= 0) {
         bull.setPosition(bull.x -= 15, bull.y);
       }
       break;
     case RIGHT:
-      if(bull.x <= width){
+      if(bull.x <= width) {
         bull.setPosition(bull.x += 15, bull.y);
       }
       break;
