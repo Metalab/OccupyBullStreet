@@ -8,6 +8,9 @@ class Student extends BoundingBox {
   int lane;
   boolean outsideScreen;
   AudioPlayer dieSound;
+  Frames explosionFrames;
+  int currentFrame = 0;
+  int frameCounter = 0;
 
   String[] images = {"03","02","01"};
   int[] lanes = {100,200,300,400,500};
@@ -24,6 +27,16 @@ class Student extends BoundingBox {
     y = int(random(-800, 0));
     alienImg = loadImage("protestor." + images[imgIndex] + ".up.png");
     dieSound = minim.loadFile("hit." + images[imgIndex] + ".aif");
+    explosionFrames = new Frames("explosion_", "png", 3);
+  }
+
+  PImage nextFrameImage() {
+    PImage currentImage = explosionFrames.images[currentFrame];
+    if (frameCounter % 4 == 0) {
+      currentFrame++;
+    }
+    frameCounter++;
+    return currentImage;
   }
 
   // update the position
@@ -52,6 +65,11 @@ class Student extends BoundingBox {
       //rect(x, y, w, h);
       imageMode(CENTER);
       image(alienImg, x, y);
+      if (this.alive == false && currentFrame <= 2)
+      {
+         PImage explosionImg = nextFrameImage();
+         image(explosionImg, x, y);
+      }
       //noStroke();
   }
 }
