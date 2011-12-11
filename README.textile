@@ -1,4 +1,4 @@
 h1. Screenshots
 
-"!https://github.com/Metalab/OccupyBullStreet/raw/master/docs/playscreen.png!"
 "!https://github.com/Metalab/OccupyBullStreet/raw/master/docs/startscreen.png!"
+"!https://github.com/Metalab/OccupyBullStreet/raw/master/docs/playscreen.png!"
