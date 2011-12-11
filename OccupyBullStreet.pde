@@ -45,6 +45,8 @@ PFont         font;
 int           level;
 int           playerId;
 
+AudioPlayer   protestersSong;
+
 void setup() {
   usekinect = false;
 
@@ -72,6 +74,8 @@ void setup() {
   timer = new Timer(30000);
   timerBox = new TimerBox(timer, minim);
   level = 1;
+  protestersSong = minim.loadFile("protesters.mp3");
+
 
   for (int i = 0; i <= studentCount-1; i++) {
      students.add(new Student(studentSpeed));
@@ -107,14 +111,22 @@ void draw() {
 
   if(usekinect) context.update();
 
+  //start game
   if (play && !dead) {
     if(usekinect) drawSkeleton(playerId);
     
+    if(!protestersSong.isPlaying()){
+      protestersSong.setLoopPoints(0,100000);
+      protestersSong.loop();
+    }
+
     scoreBox.draw();
     timerBox.draw();
 
+    //end of game
     if (timer.isFinished()) {
       dead = true;
+      protestersSong.close();
     }
 
     //println("level: "+ level);
@@ -125,10 +137,13 @@ void draw() {
       studentSpeed += 2;
     }
 
+    //generate students
     if(students.size()<studentCount){
       students.add(new Student(studentSpeed));
     }
 
+    //keep track of students on screen
+    //draw students
     for (int i = students.size()-1; i >= 0; i--) {
       Student student = (Student) students.get(i);
       if(student.isOutsideScreen()){
@@ -146,10 +161,9 @@ void draw() {
       student.draw();
     }
 
+    //draw bull
     bull.draw();
-
   } else {
-    if(usekinect) {
       image(titleImg, 0, 0);
       if (scoreBox.hasScoredYet) scoreBox.draw();
       readyBox.draw();
