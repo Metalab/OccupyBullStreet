@@ -99,7 +99,7 @@ void setup() {
   if(usekinect) {
     size(context.depthWidth(), context.depthHeight());
   } else {
-    bull = new Bull(width/2, height-100);
+    bull = new Bull(minim, width/2, height-100);
   }
   // enter fullscreen mode
   //fs.enter();
@@ -206,7 +206,7 @@ void drawSkeleton(int userId) {
   context.convertRealWorldToProjective(neck_kinect, neck);
 
   if (bull == null) {
-    bull = new Bull(neck.x, neck.y);
+    bull = new Bull(minim, neck.x, neck.y);
   }
 
   float distanceToMiddle = width/2 - neck.x;
