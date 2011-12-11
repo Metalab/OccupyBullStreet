@@ -25,7 +25,6 @@ ArrayList     students;
 Bull          bull;
 
 boolean       play;
-boolean       dead;
 boolean       usekinect;
 ReadyBox      readyBox;
 
@@ -52,7 +51,6 @@ void setup() {
   usekinect = false;
 
   play = false;
-  dead = true;
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
@@ -108,12 +106,12 @@ void draw() {
   if(usekinect) context.update();
 
   //start game
-  if (play && !dead) {
+  if (play) {
     if(usekinect) drawSkeleton(playerId);
 
     //end of game
     if (timer.isFinished()) {
-      dead = true;
+      play = false;
       protestersSong.pause();
       protestersSong.rewind();
       timerBox.pauseSound();
@@ -158,8 +156,10 @@ void draw() {
 
   } else {
       image(titleImg, 0, 0);
-      if (scoreBox.hasScoredYet) scoreBox.draw();
       readyBox.draw();
+
+      if (scoreBox.hasScoredYet) scoreBox.draw();
+
       if (usekinect) {
 
         IntVector userList = new IntVector();
@@ -170,8 +170,6 @@ void draw() {
           int userId = userList.get(i);
           if(context.isTrackingSkeleton(userId)) {
             playerId = userId;
-            play = true;
-            dead = false;
             timer.start();
             protestersSong.loop();
           }
@@ -230,13 +228,10 @@ void keyPressed() {
       }
       break;
     case ENTER:
-      if(dead && !usekinect){
         timer.start();
         scoreBox.clear();
         protestersSong.loop();
-        dead=false;
         play=true;
-      }
       break;
   }
 }
