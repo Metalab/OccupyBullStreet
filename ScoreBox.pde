@@ -10,7 +10,7 @@ class ScoreBox {
 
   void scoreFuckYeah() {
     hasScoredYet = true;
-    score += 1000 + int(random(1, 100));;
+    score += 100000 + int(random(1, 10000));;
   }
 
   void draw() {
