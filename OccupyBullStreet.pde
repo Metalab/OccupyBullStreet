@@ -50,13 +50,8 @@ AudioPlayer   protestersSong;
 void setup() {
   usekinect = false;
 
-  if (usekinect) {
-    play = false;
-  } else {
-    play = true;
-  }
-
-  dead = false;
+  play = false;
+  dead = true;
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
@@ -114,23 +109,16 @@ void draw() {
   //start game
   if (play && !dead) {
     if(usekinect) drawSkeleton(playerId);
-    
-    if(!protestersSong.isPlaying()){
-      protestersSong.setLoopPoints(0,100000);
-      protestersSong.loop();
-    }
-
-    scoreBox.draw();
-    timerBox.draw();
 
     //end of game
     if (timer.isFinished()) {
       dead = true;
-      protestersSong.close();
+      protestersSong.pause();
+      protestersSong.rewind();
+      timerBox.pauseSound();
     }
 
-    //println("level: "+ level);
-
+    //keep track of level/difficulty
     if(timer.passedTime()/1000>=level*5) {
       level ++;
       studentCount += 2;
@@ -163,11 +151,13 @@ void draw() {
 
     //draw bull
     bull.draw();
+    scoreBox.draw();
+    timerBox.draw();
+
   } else {
       image(titleImg, 0, 0);
       if (scoreBox.hasScoredYet) scoreBox.draw();
       readyBox.draw();
-
       if (usekinect) {
 
         IntVector userList = new IntVector();
@@ -181,6 +171,7 @@ void draw() {
             play = true;
             dead = false;
             timer.start();
+            protestersSong.loop();
           }
         }
       }
@@ -234,6 +225,15 @@ void keyPressed() {
     case RIGHT:
       if(bull.x <= width) {
         bull.setPosition(bull.x += 15, bull.y);
+      }
+      break;
+    case ENTER:
+      if(dead && !usekinect){
+        timer.start();
+        scoreBox.clear();
+        protestersSong.loop();
+        dead=false;
+        play=true;
       }
       break;
   }

@@ -12,10 +12,11 @@ class TimerBox {
   void draw() {
     if (timer.remainingTime()/1000 < 6) {
       countdown.play();
-    } else if (timer.remainingTime()/1000 < 0) {
-      countdown.close();
     }
-
     text("TIME LEFT: " + int(timer.remainingTime()/1000), 15, 30);
+  }
+
+  void pauseSound(){
+    countdown.pause();
   }
 }

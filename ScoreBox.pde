@@ -14,7 +14,12 @@ class ScoreBox {
   }
 
   void draw() {
+    imageMode(CORNER);
     image(dollarBill, 420, 20);
     text("" + score, 530, 45);
+  }
+
+  void clear(){
+    score = 0;
   }
 }
