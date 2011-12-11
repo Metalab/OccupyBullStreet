@@ -35,12 +35,14 @@ Timer         timer;
 Minim         minim;
 
 int           studentCount;
+int           studentSpeed;
 
 PImage        titleImg;
 
 Road roadBg = new Road();
 
 PFont         font;
+int           level;
 
 void setup() {
   usekinect = false;
@@ -55,7 +57,8 @@ void setup() {
   neck_kinect = new PVector();
   neck = new PVector();
   students = new ArrayList();
-  studentCount = 4;
+  studentCount = 2;
+  studentSpeed = 2;
 
   fs = new FullScreen(this);
   size(640, 480);
@@ -65,11 +68,12 @@ void setup() {
   scoreBox = new ScoreBox();
   readyBox = new ReadyBox();
   minim = new Minim(this);
-  timer = new Timer(100000);
+  timer = new Timer(30000);
   timerBox = new TimerBox(timer, minim);
+  level = 1;
 
   for (int i = 0; i <= studentCount-1; i++) {
-     students.add(new Student());
+     students.add(new Student(studentSpeed));
   }
 
   // enable depthMap generation 
@@ -112,8 +116,16 @@ void draw() {
       dead = true;
     }
 
+    //println("level: "+ level);
+
+    if(timer.passedTime()/1000>=level*5){
+      level ++;
+      studentCount += 2;
+      studentSpeed += 2;
+    }
+
     if(students.size()<studentCount){
-      students.add(new Student());
+      students.add(new Student(studentSpeed));
     }
 
     for (int i = students.size()-1; i >= 0; i--) {

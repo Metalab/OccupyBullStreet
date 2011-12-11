@@ -1,6 +1,6 @@
 class Student extends BoundingBox {
   color col;
-  float speed = 5;//int(random(1, 10));
+  float speed;
   PImage alienImg;
   int imgIndex;
   int laneIndex;
@@ -11,13 +11,14 @@ class Student extends BoundingBox {
   String[] images = {"protestor.03","protestor.02","protestor.01"};
   int[] lanes = {100,200,300,400,500};
 
-  Student() {
+  Student(int speed) {
     super(0, 0, 20, 20);
     imgIndex = int(random(images.length));
     laneIndex = int(random(lanes.length));
     col = color(0, 200, 0);
     alive = true;
     outsideScreen = false;
+    this.speed = speed;
     x = lanes[laneIndex];
     y = int(random(-800, 0));
     alienImg = loadImage(images[imgIndex]+".up.png");
