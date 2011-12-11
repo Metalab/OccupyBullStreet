@@ -53,10 +53,6 @@ void setup() {
   play = false;
   neck_kinect = new PVector();
   neck = new PVector();
-  students = new ArrayList();
-  studentCount = 2;
-  studentSpeed = 2;
-
   fs = new FullScreen(this);
   size(640, 480);
 
@@ -65,15 +61,10 @@ void setup() {
   scoreBox = new ScoreBox();
   readyBox = new ReadyBox();
   minim = new Minim(this);
-  timer = new Timer(30000);
+  timer = new Timer(10000);
   timerBox = new TimerBox(timer, minim);
-  level = 1;
+
   protestersSong = minim.loadFile("protesters.mp3");
-
-
-  for (int i = 0; i <= studentCount-1; i++) {
-     students.add(new Student(minim, studentSpeed));
-  }
 
   // enable depthMap generation 
   if(usekinect) context.enableDepth();
@@ -147,6 +138,7 @@ void draw() {
       }
 
       student.draw();
+      student.update();
     }
 
     //draw bull
@@ -170,23 +162,32 @@ void draw() {
           int userId = userList.get(i);
           if(context.isTrackingSkeleton(userId)) {
             playerId = userId;
-            timer.start();
-            protestersSong.loop();
-          }
         }
       }
     }
+  }
 
   update();
 }
 
+void resetGame() {
+  students = new ArrayList();
+  studentCount = 2;
+  studentSpeed = 2;
+  level = 1;
+  roadBg.speed = 4.0;
+
+  for (int i = 0; i <= studentCount-1; i++) {
+     students.add(new Student(minim, studentSpeed));
+  }
+
+  timer.start();
+  scoreBox.clear();
+  protestersSong.loop();
+}
+
 void update() {
   roadBg.update();
-
-  for (int i = students.size()-1; i >= 0; i--) {
-    Student student = (Student) students.get(i);
-    student.update();
-  }
 }
 
 // draw the skeleton with the selected joints
@@ -228,9 +229,7 @@ void keyPressed() {
       }
       break;
     case ENTER:
-        timer.start();
-        scoreBox.clear();
-        protestersSong.loop();
+        resetGame();
         play=true;
       break;
   }
