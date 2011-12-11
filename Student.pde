@@ -7,11 +7,12 @@ class Student extends BoundingBox {
   boolean alive;
   int lane;
   boolean outsideScreen;
+  AudioPlayer dieSound;
 
-  String[] images = {"protestor.03","protestor.02","protestor.01"};
+  String[] images = {"03","02","01"};
   int[] lanes = {100,200,300,400,500};
 
-  Student(int speed) {
+  Student(Minim minim, int speed) {
     super(0, 0, 20, 20);
     imgIndex = int(random(images.length));
     laneIndex = int(random(lanes.length));
@@ -21,7 +22,8 @@ class Student extends BoundingBox {
     this.speed = speed;
     x = lanes[laneIndex];
     y = int(random(-800, 0));
-    alienImg = loadImage(images[imgIndex]+".up.png");
+    alienImg = loadImage("protestor." + images[imgIndex] + ".up.png");
+    dieSound = minim.loadFile("hit." + images[imgIndex] + ".aif");
   }
 
   // update the position
@@ -39,7 +41,8 @@ class Student extends BoundingBox {
 
  void die(){
    this.alive = false;
-   alienImg = loadImage(images[imgIndex]+".down.png");
+   dieSound.play();
+   alienImg = loadImage("protestor." + images[imgIndex] + ".down.png");
  }
 
   void draw() {
